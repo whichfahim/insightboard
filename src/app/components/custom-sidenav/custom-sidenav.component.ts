@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, Input, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 
@@ -15,6 +15,13 @@ export type MenuItem = {
   styleUrl: './custom-sidenav.component.css',
 })
 export class CustomSidenavComponent {
+  sideNavCollapsed = signal(false);
+  @Input() set collapsed(val: boolean) {
+    this.sideNavCollapsed.set(val);
+  }
+
+  profilePicSize = computed(() => (this.sideNavCollapsed() ? '32' : '100'));
+
   menuItems = signal<MenuItem[]>([
     {
       icon: 'dashboard',

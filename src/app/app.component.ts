@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,4 +21,6 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
 })
 export class AppComponent {
   title = 'insightboard';
+  collapsed = signal(false);
+  sideNavWidth = computed(() => (this.collapsed() ? '65px' : '250px'));
 }
