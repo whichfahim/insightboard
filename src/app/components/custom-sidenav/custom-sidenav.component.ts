@@ -13,7 +13,7 @@ export type MenuItem = {
   selector: 'app-custom-sidenav',
   imports: [RouterModule, MatListModule, MatIconModule],
   templateUrl: './custom-sidenav.component.html',
-  styleUrl: './custom-sidenav.component.css',
+  styleUrl: './custom-sidenav.component.scss',
 })
 export class CustomSidenavComponent {
   sideNavCollapsed = signal(false);

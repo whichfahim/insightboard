@@ -17,7 +17,7 @@ import { CustomSidenavComponent } from './components/custom-sidenav/custom-siden
     CustomSidenavComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'insightboard';

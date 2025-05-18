@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-widgets',
   imports: [],
   templateUrl: './widgets.component.html',
-  styleUrl: './widgets.component.css'
+  styleUrl: './widgets.component.scss',
 })
-export class WidgetsComponent {
-
-}
+export class WidgetsComponent {}
