@@ -1,0 +1,13 @@
+mat-toolbar {
+  position: relative;
+  z-index: 5;
+  box-shadow: 5px 5px #8888886e;
+}
+
+.content {
+  padding: 24px;
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 64px);
+}
