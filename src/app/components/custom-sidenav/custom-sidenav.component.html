@@ -6,7 +6,7 @@
     src="img/me.jpeg    "
     alt="#"
   />
-  <div class="header-text">
+  <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
     <h2>Your channel</h2>
     <p>Fahim Imtiaz</p>
   </div>
@@ -17,9 +17,17 @@
     <span matListItemTitle>{{ item.label }} </span>
   </a> -->
   @for (item of menuItems(); track item.label) {
-  <a mat-list-item>
+  <a
+    mat-list-item
+    [routerLink]="item.route"
+    routerLinkActive
+    #rla="routerLinkActive"
+    [activated]="rla.isActive"
+  >
     <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+    @if (!sideNavCollapsed()){
     <span matListItemTitle>{{ item.label }} </span>
+    }
   </a>
 
   }
