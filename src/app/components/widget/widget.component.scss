@@ -11,4 +11,12 @@
   box-sizing: border-box;
   border-radius: inherit;
   overflow: hidden;
+
+  box-shadow: 5px 5px #8888887e, 5px 5px #8888887e;
+}
+
+.btn-settings {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
