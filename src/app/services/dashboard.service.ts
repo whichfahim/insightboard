@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { Widget } from '../models/dashboard';
 import { TotalUsersComponent } from '../pages/dashboard/widgets/total-users.component';
 import { SalesDataComponent } from '../pages/dashboard/widgets/sales-data.component';
@@ -32,20 +32,7 @@ export class DashboardService {
     },
   ]);
 
-  addedWidgets = signal<Widget[]>([
-    {
-      id: 1,
-      label: 'Total Users',
-      content: TotalUsersComponent,
-      rows: 2,
-      columns: 2,
-    },
-    {
-      id: 2,
-      label: 'Sales Data',
-      content: SalesDataComponent,
-    },
-  ]);
+  addedWidgets = signal<Widget[]>([]);
   widgetsToAdd = computed(() => {
     const addedIds = this.addedWidgets().map((w) => w.id);
     return this.widgets().filter((w) => !addedIds.includes(w.id));
@@ -67,5 +54,37 @@ export class DashboardService {
   removeWidget(id: number) {
     this.addedWidgets.set(this.addedWidgets().filter((w) => w.id !== id));
   }
-  constructor() {}
+
+  fetchWidgets() {
+    const widgetsAsString = localStorage.getItem('dashboardWidgets');
+    if (widgetsAsString) {
+      const widgets = JSON.parse(widgetsAsString) as Widget[];
+      widgets.forEach((widget) => {
+        const content = this.widgets().find((w) => w.id === widget.id)?.content;
+        if (content) {
+          widget.content = content;
+        }
+      });
+
+      this.addedWidgets.set(widgets);
+    }
+  }
+
+  constructor() {
+    this.fetchWidgets();
+  }
+
+  saveWidgets = effect(() => {
+    const widgetsWithoutContent: Partial<Widget>[] = this.addedWidgets().map(
+      (w) => ({ ...w })
+    );
+    widgetsWithoutContent.forEach((w) => {
+      delete w.content;
+    });
+
+    localStorage.setItem(
+      'dashboardWidgets',
+      JSON.stringify(widgetsWithoutContent)
+    );
+  });
 }
