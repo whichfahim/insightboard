@@ -2,6 +2,8 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Widget } from '../models/dashboard';
 import { TotalUsersComponent } from '../pages/dashboard/widgets/total-users.component';
 import { SalesDataComponent } from '../pages/dashboard/widgets/sales-data.component';
+import { TasksCompletedComponent } from '../pages/dashboard/widgets/tasks-completed.component';
+import { RevenueComponent } from '../pages/dashboard/widgets/revenue.component';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +19,16 @@ export class DashboardService {
       id: 2,
       label: 'Sales Data',
       content: SalesDataComponent,
+    },
+    {
+      id: 3,
+      label: 'Tasks Completed',
+      content: TasksCompletedComponent,
+    },
+    {
+      id: 4,
+      label: 'Revenue',
+      content: RevenueComponent,
     },
   ]);
 
