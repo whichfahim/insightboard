@@ -5,6 +5,9 @@ import { SalesDataComponent } from '../pages/dashboard/widgets/sales-data.compon
 import { TasksCompletedComponent } from '../pages/dashboard/widgets/tasks-completed.component';
 import { RevenueComponent } from '../pages/dashboard/widgets/revenue.component';
 import { TrafficSourcesComponent } from '../pages/dashboard/widgets/traffic-sources.component';
+import { DataTableComponent } from '../pages/dashboard/widgets/data-table.component';
+import { TasksCompletedPercentageComponent } from '../pages/dashboard/widgets/tasks-completed-percentage.component';
+import { RecentActivityComponent } from '../pages/dashboard/widgets/recent-activity.component';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +38,21 @@ export class DashboardService {
       id: 5,
       label: 'Traffic Sources',
       content: TrafficSourcesComponent,
+    },
+    {
+      id: 6,
+      label: 'Data Table',
+      content: DataTableComponent,
+    },
+    {
+      id: 7,
+      label: 'Tasks Completed',
+      content: TasksCompletedPercentageComponent,
+    },
+    {
+      id: 8,
+      label: 'Recent Activity',
+      content: RecentActivityComponent,
     },
   ]);
 
