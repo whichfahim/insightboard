@@ -51,5 +51,9 @@ export class DashboardService {
       this.addedWidgets.set(newWidgets);
     }
   }
+
+  removeWidget(id: number) {
+    this.addedWidgets.set(this.addedWidgets().filter((w) => w.id !== id));
+  }
   constructor() {}
 }
