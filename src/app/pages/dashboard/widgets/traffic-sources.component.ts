@@ -6,13 +6,18 @@ import Chart from 'chart.js/auto';
   imports: [],
   template: `
     <div class="chart-container">
-      <canvas #chart></canvas>
+      <canvas #piechart></canvas>
     </div>
   `,
-  styles: '',
+  styles: `
+    .chart-container{
+      height: calc(100%-10px)
+      width: 100% 
+    }
+  `,
 })
 export class TrafficSourcesComponent {
-  chart = viewChild.required<ElementRef>('chart');
+  chart = viewChild.required<ElementRef>('piechart');
 
   ngOnInit() {
     new Chart(this.chart().nativeElement, {
