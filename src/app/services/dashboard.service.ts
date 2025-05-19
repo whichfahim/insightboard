@@ -4,6 +4,7 @@ import { TotalUsersComponent } from '../pages/dashboard/widgets/total-users.comp
 import { SalesDataComponent } from '../pages/dashboard/widgets/sales-data.component';
 import { TasksCompletedComponent } from '../pages/dashboard/widgets/tasks-completed.component';
 import { RevenueComponent } from '../pages/dashboard/widgets/revenue.component';
+import { TrafficSourcesComponent } from '../pages/dashboard/widgets/traffic-sources.component';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,11 @@ export class DashboardService {
       id: 4,
       label: 'Revenue',
       content: RevenueComponent,
+    },
+    {
+      id: 5,
+      label: 'Traffic Sources',
+      content: TrafficSourcesComponent,
     },
   ]);
 
