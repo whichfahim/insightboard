@@ -1,8 +1,18 @@
-<div class="container mat-elevation-z3">
-  <h3 class="m-0">{{ data().label }}</h3>
-  <button mat-icon-button class="btn-settings" (click)="showOptions.set(true)">
-    <mat-icon>settings</mat-icon>
-  </button>
+<div
+  class="container mat-elevation-z3"
+  cdkDrag
+  cdkDragPreviewContainer="parent"
+>
+  <div class="widget-header">
+    <h4 class="widget-label">{{ data().label }}</h4>
+    <button
+      mat-icon-button
+      class="btn-settings"
+      (click)="showOptions.set(true)"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
   <ng-container [ngComponentOutlet]="data().content" />
 
   @if (showOptions()){

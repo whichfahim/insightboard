@@ -20,3 +20,12 @@
   top: 20px;
   right: 20px;
 }
+
+.widget-header {
+  display: flex;
+  align-items: center;
+}
+
+.widget-label {
+  margin: 0 0 5px 0;
+}
