@@ -13,6 +13,7 @@ import { MatIcon } from '@angular/material/icon';
   `,
   styles: `
     .text-main{
+      font-size: 3rem;
       margin: 5px 0 5px 0;
     }
 

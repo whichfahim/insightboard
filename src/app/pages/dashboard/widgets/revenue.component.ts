@@ -5,14 +5,14 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <div class="container">
-      <h2>65,200</h2>
+      <h1>65,200</h1>
     </div>
   `,
   styles: `
     .container{
       border: 1rem solid green;
-      height: 100px;
-      width: 100px;
+      height: 150px;
+      width: 150px;
       margin: 0 auto;
       display: flex;
       align-items: center;
