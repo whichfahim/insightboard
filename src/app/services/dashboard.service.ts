@@ -24,7 +24,7 @@ export class DashboardService {
       label: 'Sales Data',
       content: SalesDataComponent,
       columns: 2,
-      rows: 2,
+      rows: 1,
     },
     {
       id: 3,
