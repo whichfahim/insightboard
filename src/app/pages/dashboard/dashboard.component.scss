@@ -2,11 +2,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  color: whitesmoke;
+
+  background-color: var(--primary-colour);
+
+  border-radius: 16px 16px 0 0;
+
+  > h2 {
+    margin-left: 2rem;
+  }
+
+  > button {
+    margin-right: 2rem;
+  }
 }
 
 .dashboard-widgets {
+  height: fit-content;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-auto-rows: 150px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: minmax(100px, max-content);
   gap: 16px;
 }

@@ -12,6 +12,8 @@
   border-radius: inherit;
   overflow: hidden;
 
+  z-index: 3;
+
   box-shadow: 5px 5px #8888887e, 5px 5px #8888887e;
 
   cursor: grab;
@@ -21,4 +23,13 @@
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+}
+
+.widget-label {
+  margin: 0 0 1rem 0;
 }
