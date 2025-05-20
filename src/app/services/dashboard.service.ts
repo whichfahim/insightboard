@@ -94,6 +94,28 @@ export class DashboardService {
     }
   }
 
+  updateWidgetPosition(srcWidgetId: number, dstWidgetId: number) {
+    const srcIdx = this.addedWidgets().findIndex((w) => w.id === srcWidgetId);
+
+    if (srcIdx === -1) {
+      return;
+    }
+
+    const newWidgets = [...this.addedWidgets()];
+    const srcWidget = newWidgets.splice(srcIdx, 1)[0];
+
+    const dstIdx = newWidgets.findIndex((w) => w.id === dstWidgetId);
+    if (dstIdx === -1) {
+      return;
+    }
+
+    const insertAt = dstIdx === srcIdx ? dstIdx + 1 : dstIdx;
+
+    newWidgets.splice(insertAt, 0, srcWidget);
+
+    this.addedWidgets.set(newWidgets);
+  }
+
   constructor() {
     this.fetchWidgets();
   }

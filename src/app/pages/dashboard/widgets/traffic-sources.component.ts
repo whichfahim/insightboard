@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
   `,
   styles: `
     .chart-container{
-      height: calc(100%-10px)
+      height: calc(100% - 10px)
       width: 100%
     }
   `,
