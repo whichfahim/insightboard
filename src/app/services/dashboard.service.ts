@@ -23,6 +23,8 @@ export class DashboardService {
       id: 2,
       label: 'Sales Data',
       content: SalesDataComponent,
+      columns: 2,
+      rows: 2,
     },
     {
       id: 3,
@@ -38,6 +40,8 @@ export class DashboardService {
       id: 5,
       label: 'Traffic Sources',
       content: TrafficSourcesComponent,
+      rows: 3,
+      columns: 2,
     },
     {
       id: 6,
