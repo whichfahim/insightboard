@@ -40,7 +40,7 @@ export class DashboardService {
       id: 5,
       label: 'Traffic Sources',
       content: TrafficSourcesComponent,
-      rows: 3,
+      rows: 1,
       columns: 2,
     },
     {
