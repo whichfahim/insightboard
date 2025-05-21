@@ -1,12 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-revenue',
-  imports: [],
+  imports: [CommonModule],
   template: `
     <div class="container">
-      <h1>{{ revenue.value }}</h1>
+      <h1>{{ revenue.value | number : '1.0' : 'en-US' }}</h1>
     </div>
   `,
   styles: `
