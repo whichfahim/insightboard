@@ -1,14 +1,26 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-total-users',
-  imports: [MatIcon],
+  imports: [CommonModule, MatIcon],
   template: `
-    <h1 class="text-main">12,530</h1>
+    <h1 class="text-main">
+      {{ totalUsers.current | number : '1.0' : 'en-US' }}
+    </h1>
     <span class="text-sub"
-      ><mat-icon class="text-color-green"> arrow_circle_up </mat-icon>
-      <p class="percentage-change text-color-green">4.2%</p>
+      ><mat-icon
+        [ngClass]="percentageChange > 0 ? 'text-color-green' : 'text-color-red'"
+      >
+        {{ percentageChange > 0 ? 'arrow_circle_up' : 'arrow_circle_down' }}
+      </mat-icon>
+      <p
+        [ngClass]="percentageChange > 0 ? 'text-color-green' : 'text-color-red'"
+      >
+        {{ percentageChange | number : '1.0' }}%
+      </p>
     </span>
   `,
   styles: `
@@ -21,6 +33,10 @@ import { MatIcon } from '@angular/material/icon';
       color: green;
     }
     
+    
+    .text-color-red{
+      color: red;
+    }
 
     .text-sub{
       display: flex;
@@ -29,4 +45,20 @@ import { MatIcon } from '@angular/material/icon';
     }
   `,
 })
-export class TotalUsersComponent {}
+export class TotalUsersComponent {
+  http = inject(HttpClient);
+  apiUrl = 'http://localhost:3000';
+  totalUsers: { current: number; prev: number };
+  percentageChange: number;
+
+  constructor() {
+    this.http.get(`${this.apiUrl}/totalUsers`).subscribe((res: any) => {
+      this.totalUsers = res;
+      console.log('totalusers', this.totalUsers);
+      this.percentageChange =
+        ((this.totalUsers.current - this.totalUsers.prev) /
+          this.totalUsers.prev) *
+        100;
+    });
+  }
+}

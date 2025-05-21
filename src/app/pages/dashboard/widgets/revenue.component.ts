@@ -7,7 +7,7 @@ import { Component, inject } from '@angular/core';
   imports: [CommonModule],
   template: `
     <div class="container">
-      <h1>{{ revenue.value | number : '1.0' : 'en-US' }}</h1>
+      <h1>{{ revenue | number : '1.0' : 'en-US' }}</h1>
     </div>
   `,
   styles: `
@@ -29,11 +29,10 @@ import { Component, inject } from '@angular/core';
 export class RevenueComponent {
   http = inject(HttpClient);
   apiUrl = 'http://localhost:3000';
-  revenue: { value: number };
+  revenue: number;
 
   constructor() {
     this.http.get(`${this.apiUrl}/revenue`).subscribe((res: any) => {
-      console.log('res', res);
       this.revenue = res;
     });
   }
