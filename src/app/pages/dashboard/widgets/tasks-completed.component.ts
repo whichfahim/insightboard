@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-tasks-completed',
   imports: [],
   template: `
     <div class="container">
-      <h1 class="text-main">275</h1>
+      <h1 class="text-main">{{ tasksCompleted.current }}</h1>
     </div>
   `,
   styles: `
@@ -23,4 +24,19 @@ import { Component } from '@angular/core';
     }
   `,
 })
-export class TasksCompletedComponent {}
+export class TasksCompletedComponent {
+  http = inject(HttpClient);
+  apiUrl = 'http://localhost:3000';
+  tasksCompleted: { current: number; prev: number };
+  percentageChange: number;
+
+  constructor() {
+    this.http.get(`${this.apiUrl}/tasksCompleted`).subscribe((res: any) => {
+      this.tasksCompleted = res;
+      this.percentageChange =
+        ((this.tasksCompleted.current - this.tasksCompleted.prev) /
+          this.tasksCompleted.prev) *
+        100;
+    });
+  }
+}

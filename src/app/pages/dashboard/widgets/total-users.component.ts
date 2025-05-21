@@ -54,7 +54,6 @@ export class TotalUsersComponent {
   constructor() {
     this.http.get(`${this.apiUrl}/totalUsers`).subscribe((res: any) => {
       this.totalUsers = res;
-      console.log('totalusers', this.totalUsers);
       this.percentageChange =
         ((this.totalUsers.current - this.totalUsers.prev) /
           this.totalUsers.prev) *

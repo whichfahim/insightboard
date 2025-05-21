@@ -26,10 +26,8 @@
   "revenue": 65200,
 
   "tasksCompleted": {
-    "id": 1,
-    "value": 275,
-    "prevVal": 200,
-    "percent": 4.2
+    "current": 275,
+    "prev": 200
   },
   "trafficSources": [
     {

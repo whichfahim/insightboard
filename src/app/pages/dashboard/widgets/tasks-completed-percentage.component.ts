@@ -1,13 +1,25 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-tasks-completed-percentage',
-  imports: [MatIcon],
-  template: `<h1 class="text-main">275</h1>
+  imports: [CommonModule, MatIcon],
+  template: `<h1 class="text-main">
+      {{ tasksCompleted.current | number : '1.0' : 'en-US' }}
+    </h1>
     <span class="text-sub"
-      ><mat-icon class="text-color-green"> arrow_circle_up </mat-icon>
-      <p class="percentage-change text-color-green">4.2%</p>
+      ><mat-icon
+        [ngClass]="percentageChange > 0 ? 'text-color-green' : 'text-color-red'"
+      >
+        {{ percentageChange > 0 ? 'arrow_circle_up' : 'arrow_circle_down' }}
+      </mat-icon>
+      <p
+        [ngClass]="percentageChange > 0 ? 'text-color-green' : 'text-color-red'"
+      >
+        {{ percentageChange | number : '1.0' }}%
+      </p>
     </span>`,
   styles: `
     .text-main{
@@ -27,4 +39,19 @@ import { MatIcon } from '@angular/material/icon';
     }
   `,
 })
-export class TasksCompletedPercentageComponent {}
+export class TasksCompletedPercentageComponent {
+  http = inject(HttpClient);
+  apiUrl = 'http://localhost:3000';
+  tasksCompleted: { current: number; prev: number };
+  percentageChange: number;
+
+  constructor() {
+    this.http.get(`${this.apiUrl}/tasksCompleted`).subscribe((res: any) => {
+      this.tasksCompleted = res;
+      this.percentageChange =
+        ((this.tasksCompleted.current - this.tasksCompleted.prev) /
+          this.tasksCompleted.prev) *
+        100;
+    });
+  }
+}
