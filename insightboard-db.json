@@ -1,0 +1,46 @@
+{
+  "totalUsers": { "id": "1", "totalUsers": 12530 },
+  "salesData": [
+    {
+      "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      "datasets": {
+        "label": "Sales Data",
+        "data": [100, 120, 110, 130, 120, 140],
+        "borderColor": "rgb(255, 99, 132)",
+        "backgroundColor": "rgb(255,99,132, 0.5",
+        "fill": "start"
+      },
+      "options": {
+        "maintainAspectRatio": false,
+        "elements": {
+          "line": {
+            "tension": 0.4
+          }
+        }
+      }
+    }
+  ],
+  "revenue": {
+    "value": 65200
+  },
+  "tasksCompleted": {
+    "id": 1,
+    "value": 275,
+    "prevVal": 200,
+    "percent": 4.2
+  },
+  "trafficSources": [
+    {
+      "id": 1,
+      "direct": 300
+    },
+    {
+      "id": 2,
+      "referral": 50
+    },
+    {
+      "id": 3,
+      "others": 100
+    }
+  ]
+}

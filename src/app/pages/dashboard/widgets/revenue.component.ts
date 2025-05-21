@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-revenue',
   imports: [],
   template: `
     <div class="container">
-      <h1>65,200</h1>
+      <h1>{{ revenue.value }}</h1>
     </div>
   `,
   styles: `
@@ -24,4 +25,15 @@ import { Component } from '@angular/core';
     }
   `,
 })
-export class RevenueComponent {}
+export class RevenueComponent {
+  http = inject(HttpClient);
+  apiUrl = 'http://localhost:3000';
+  revenue: { value: number };
+
+  constructor() {
+    this.http.get(`${this.apiUrl}/revenue`).subscribe((res: any) => {
+      console.log('res', res);
+      this.revenue = res;
+    });
+  }
+}
