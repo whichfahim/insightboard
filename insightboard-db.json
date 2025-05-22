@@ -29,18 +29,54 @@
     "current": 275,
     "prev": 200
   },
-  "trafficSources": [
+  "trafficSources": {
+    "direct": 300,
+
+    "referral": 50,
+
+    "others": 100
+  },
+  "dataTable": {
+    "columns": ["ID", "Name", "Status"],
+    "data": [
+      { "ID": 1, "name": "John Doe", "status": "Active" },
+      { "ID": 2, "name": "Jane Smith", "status": "Inactive" },
+      { "ID": 3, "name": "Emily Davis", "status": "Active" },
+      { "ID": 4, "name": "Michael Brown", "status": "Inactive" },
+      { "ID": 5, "name": "Laura Wilson", "status": "Active" },
+      { "ID": 6, "name": "Daniel Garcia", "status": "Inactive" },
+      { "ID": 7, "name": "Sarah Johnson", "status": "Active" },
+      { "ID": 8, "name": "David Martinez", "status": "Inactive" },
+      { "ID": 9, "name": "Emma Lee", "status": "Active" },
+      { "ID": 10, "name": "James Rodriguez", "status": "Inactive" },
+      { "ID": 11, "name": "Sophia Walker", "status": "Active" },
+      { "ID": 12, "name": "Alexander Hall", "status": "Inactive" },
+      { "ID": 13, "name": "Olivia Allen", "status": "Active" },
+      { "ID": 14, "name": "Ethan Young", "status": "Inactive" },
+      { "ID": 15, "name": "Isabella King", "status": "Active" },
+      { "ID": 16, "name": "William Scott", "status": "Inactive" },
+      { "ID": 17, "name": "Ava Adams", "status": "Active" },
+      { "ID": 18, "name": "Noah Nelson", "status": "Inactive" },
+      { "ID": 19, "name": "Mia Perez", "status": "Active" },
+      { "ID": 20, "name": "Liam Campbell", "status": "Inactive" }
+    ]
+  },
+  "recentActivity": [
     {
-      "id": 1,
-      "direct": 300
+      "task": "Created a new report",
+      "timestamp": "10:40 AM"
     },
     {
-      "id": 2,
-      "referral": 50
+      "task": "Completed a task",
+      "timestamp": "9:20 AM"
     },
     {
-      "id": 3,
-      "others": 100
+      "task": "Updated profile",
+      "timestamp": "2:15 AM"
+    },
+    {
+      "task": "Added new user",
+      "timestamp": "11:00 AM"
     }
   ]
 }
