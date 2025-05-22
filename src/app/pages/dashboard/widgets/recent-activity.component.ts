@@ -44,11 +44,6 @@ export class RecentActivityComponent {
 
   async loadData() {
     this.recentActivity = await this.apiService.getRecentActivity();
-    console.log(this.recentActivity);
     this.tasks = this.recentActivity;
-    // this.sources = Object.keys(this.traffic);
-    // this.values = Object.values(this.traffic);
-    // console.log('sources', this.sources);
-    // console.log('values', this.values);
   }
 }

@@ -3,8 +3,8 @@
     "current": 12530,
     "prev": 12000
   },
-  "salesData": [
-    {
+  "salesData": {
+    "data": {
       "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
       "datasets": {
         "label": "Sales Data",
@@ -12,17 +12,17 @@
         "borderColor": "rgb(255, 99, 132)",
         "backgroundColor": "rgb(255,99,132, 0.5",
         "fill": "start"
-      },
-      "options": {
-        "maintainAspectRatio": false,
-        "elements": {
-          "line": {
-            "tension": 0.4
-          }
+      }
+    },
+    "options": {
+      "maintainAspectRatio": false,
+      "elements": {
+        "line": {
+          "tension": 0.4
         }
       }
     }
-  ],
+  },
   "revenue": 65200,
 
   "tasksCompleted": {

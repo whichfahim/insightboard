@@ -42,7 +42,6 @@ export class TrafficSourcesComponent {
       (key) => key.charAt(0).toUpperCase() + key.slice(1)
     );
     this.data = Object.values(this.trafficSources);
-    // console.log('labels', this.labels, 'data', this.data);
     this.drawChart();
   }
 

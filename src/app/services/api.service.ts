@@ -31,4 +31,13 @@ export class ApiService {
       return null;
     }
   }
+
+  async getSalesData() {
+    try {
+      return await lastValueFrom(this.http.get(`${this.apiUrl}/salesData`));
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
 }
