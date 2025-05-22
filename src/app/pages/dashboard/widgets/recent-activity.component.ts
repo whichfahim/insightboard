@@ -1,42 +1,27 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-recent-activity',
   imports: [],
   template: `
-    <!-- <h2>Recent Activity</h2> -->
     <ul>
+      @for (task of tasks; track task){
       <li>
-        <span class="activity-span"
-          ><p class="task">Created a new report</p>
-          <p class="timestamp">10:40 AM</p></span
-        >
+        <span class="activity-span">
+          <p class="task">{{ task.task }}</p>
+          <p class="timestamp">{{ task.timestamp }}</p>
+        </span>
       </li>
-      <li>
-        <span class="activity-span"
-          ><p class="task">Completed task</p>
-          <p class="timestamp">9:20 AM</p></span
-        >
-      </li>
-      <li>
-        <span class="activity-span"
-          ><p class="task">Updated profile</p>
-          <p class="timestamp">2:15 PM</p></span
-        >
-      </li>
-      <li>
-        <span class="activity-span"
-          ><p class="task">Added new user</p>
-          <p class="timestamp">11:00 AM</p></span
-        >
-      </li>
+      }
     </ul>
   `,
   styles: `
+  
 
     .activity-span{
-      display: block;
-      margin-bottom: 5px !important;
+      // display: block;
+      margin-bottom: 5px;
     }
     .task{
       margin-bottom: 5px;
@@ -49,4 +34,21 @@ import { Component } from '@angular/core';
     }
   `,
 })
-export class RecentActivityComponent {}
+export class RecentActivityComponent {
+  recentActivity: any | null;
+  constructor(private readonly apiService: ApiService) {
+    this.loadData();
+  }
+
+  tasks: any[];
+
+  async loadData() {
+    this.recentActivity = await this.apiService.getRecentActivity();
+    console.log(this.recentActivity);
+    this.tasks = this.recentActivity;
+    // this.sources = Object.keys(this.traffic);
+    // this.values = Object.values(this.traffic);
+    // console.log('sources', this.sources);
+    // console.log('values', this.values);
+  }
+}

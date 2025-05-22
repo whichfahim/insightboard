@@ -8,12 +8,23 @@ import { lastValueFrom } from 'rxjs';
 export class ApiService {
   apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   async getTrafficData() {
     try {
       return await lastValueFrom(
         this.http.get(`${this.apiUrl}/trafficSources`)
+      );
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
+
+  async getRecentActivity() {
+    try {
+      return await lastValueFrom(
+        this.http.get(`${this.apiUrl}/recentActivity`)
       );
     } catch (e) {
       console.log(e);
