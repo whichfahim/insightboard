@@ -29,7 +29,6 @@ export class SalesDataComponent {
 
   async loadData() {
     this.salesData = await this.apiService.getSalesData();
-    console.log(this.salesData.data.datasets.data);
     this.labels = this.salesData?.data?.labels;
     this.datapoints = this.salesData?.data?.datasets?.data;
     this.heading = this.salesData?.data.datasets.label;

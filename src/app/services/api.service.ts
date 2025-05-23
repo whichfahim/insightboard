@@ -40,4 +40,13 @@ export class ApiService {
       return null;
     }
   }
+
+  async getDataTable() {
+    try {
+      return await lastValueFrom(this.http.get(`${this.apiUrl}/dataTable`));
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  }
 }

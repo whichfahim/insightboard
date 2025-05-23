@@ -1,48 +1,74 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
+import { ApiService } from '../../../services/api.service';
+
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-data-table',
-  imports: [MatTableModule, MatPaginatorModule],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    CommonModule,
+  ],
   template: `
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource">
-        <!-- Position Column -->
+    <mat-card>
+      <mat-progress-spinner
+        *ngIf="loading"
+        mode="indeterminate"
+        diameter="40"
+      ></mat-progress-spinner>
+
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        *ngIf="!loading"
+      >
+        <!-- ID Column -->
         <ng-container matColumnDef="ID">
           <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
+          <td mat-cell *matCellDef="let user">{{ user.ID }}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          <td mat-cell *matCellDef="let user">{{ user.name }}</td>
         </ng-container>
 
-        <!-- Weight Column -->
+        <!-- Status Column -->
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Status</th>
-          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+          <td mat-cell *matCellDef="let user">
+            <div [ngClass]="user.status === 'Active' ? 'active' : 'inactive'">
+              {{ user.status }}
+            </div>
+          </td>
         </ng-container>
-
-        <!-- Symbol Column -->
-        <!-- <ng-container matColumnDef="symbol">
-          <th mat-header-cell *matHeaderCellDef>Symbol</th>
-          <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
-        </ng-container> -->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
 
       <mat-paginator
+        [pageSize]="5"
         [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButtons
-        aria-label="Select page of periodic elements"
-      >
-      </mat-paginator>
-    </div>
+      ></mat-paginator>
+    </mat-card>
   `,
   styles: `
     table {
@@ -64,14 +90,34 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
     }
   `,
 })
-export class DataTableComponent implements AfterViewInit {
+export class DataTableComponent implements OnInit {
   displayedColumns: string[] = ['ID', 'name', 'status'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<any>();
+  loading = true;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  constructor(private readonly apiService: ApiService) {}
+
+  async loadData() {
+    try {
+      const response: any = await this.apiService.getDataTable();
+      if (response) {
+        this.dataSource.data = response?.data;
+        this.dataSource.paginator = this.paginator;
+        console.log('Fetched data:', response);
+      } else {
+        console.error('No data received');
+      }
+    } catch (error) {
+      console.error('Error loading table data:', error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  ngOnInit() {
+    this.loadData();
   }
 }
 
@@ -80,26 +126,3 @@ export interface PeriodicElement {
   name: string;
   status: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { ID: 1, name: 'John Doe', status: 'Active' },
-  { ID: 2, name: 'Jane Smith', status: 'Inactive' },
-  { ID: 3, name: 'Emily Dayk', status: 'Active' },
-  { ID: 4, name: 'Michael Brown', status: 'Inactive' },
-  { ID: 5, name: 'John Smith', status: 'Active' },
-  { ID: 6, name: 'Carbon', status: 'C' },
-  { ID: 7, name: 'Nitrogen', status: 'N' },
-  { ID: 8, name: 'Oxygen', status: 'O' },
-  { ID: 9, name: 'Fluorine', status: 'F' },
-  { ID: 10, name: 'Neon', status: 'Ne' },
-  { ID: 11, name: 'Sodium', status: 'Na' },
-  { ID: 12, name: 'Magnesium', status: 'Mg' },
-  { ID: 13, name: 'Aluminum', status: 'Al' },
-  { ID: 14, name: 'Silicon', status: 'Si' },
-  { ID: 15, name: 'Phosphorus', status: 'P' },
-  { ID: 16, name: 'Sulfur', status: 'S' },
-  { ID: 17, name: 'Chlorine', status: 'Cl' },
-  { ID: 18, name: 'Argon', status: 'Ar' },
-  { ID: 19, name: 'Potassium', status: 'K' },
-  { ID: 20, name: 'Calcium', status: 'Ca' },
-];

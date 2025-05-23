@@ -37,7 +37,6 @@
     "others": 100
   },
   "dataTable": {
-    "columns": ["ID", "Name", "Status"],
     "data": [
       { "ID": 1, "name": "John Doe", "status": "Active" },
       { "ID": 2, "name": "Jane Smith", "status": "Inactive" },
