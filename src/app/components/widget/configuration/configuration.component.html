@@ -1,0 +1,14 @@
+<form [formGroup]="settingsForm">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Datasource</mat-label>
+    <mat-select formControlName="dataSource">
+      <mat-option value="one">Primary db</mat-option>
+      <mat-option value="two">Secondary db</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button type="submit" (click)="onSubmit()">Submit</button>
+</form>
