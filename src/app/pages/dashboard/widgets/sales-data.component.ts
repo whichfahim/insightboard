@@ -1,6 +1,7 @@
-import { Component, ElementRef, viewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { ApiService } from '../../../services/api.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-sales-data',
@@ -19,73 +20,66 @@ import { ApiService } from '../../../services/api.service';
 })
 export class SalesDataComponent {
   salesData: any;
-  labels: string[];
-  datapoints: number[];
-  heading: string;
+  labels: string[] = [];
+  datapoints: number[] = [];
+  heading: string = '';
 
-  constructor(private apiService: ApiService) {
-    this.loadData();
-  }
+  @ViewChild('chart', { static: true }) chartRef!: ElementRef;
+
+  constructor(private apiService: ApiService) {}
 
   async loadData() {
-    this.salesData = await this.apiService.getSalesData();
-    this.labels = this.salesData?.data?.labels;
-    this.datapoints = this.salesData?.data?.datasets?.data;
-    this.heading = this.salesData?.data.datasets.label;
-    this.drawChart();
-  }
-  chart = viewChild.required<ElementRef>('chart');
+    this.salesData = await firstValueFrom(this.apiService.getSalesData());
+    const { labels, datasets } = this.salesData?.data ?? {};
 
-  drawChart() {
-    if (this.salesData) {
-      new Chart(this.chart().nativeElement, {
-        type: 'line',
-        data: {
-          labels: this.labels,
-          datasets: [
-            {
-              label: this.heading,
-              data: this.datapoints,
-              borderColor: 'rgb(51, 44, 244)',
-              backgroundColor: 'rgba(51, 44, 244, 0.25)',
-              fill: 'start',
-            },
-          ],
-        },
-        options: {
-          maintainAspectRatio: false,
-          elements: {
-            line: {
-              tension: 0.4,
-            },
+    this.labels = labels;
+    this.datapoints = datasets?.data;
+    this.heading = datasets?.label;
+  }
+
+  drawChart(): void {
+    if (!this.labels || !this.datapoints) return;
+
+    new Chart(this.chartRef.nativeElement, {
+      type: 'line',
+      data: {
+        labels: this.labels,
+        datasets: [
+          {
+            label: this.heading,
+            data: this.datapoints,
+            borderColor: 'rgb(51, 44, 244)',
+            backgroundColor: 'rgba(51, 44, 244, 0.25)',
+            fill: 'start',
+          },
+        ],
+      },
+      options: {
+        maintainAspectRatio: false,
+        elements: {
+          line: {
+            tension: 0.4,
           },
         },
-      });
-    }
+      },
+    });
   }
-  // ngOnInit() {
-  //   new Chart(this.chart().nativeElement, {
-  //     type: 'line',
-  //     data: {
-  //       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  //       datasets: [
-  //         {
-  //           label: 'Sales Data',
-  //           data: [100, 120, 110, 130, 120, 140],
-  //           borderColor: 'rgb(51, 44, 244)',
-  //           backgroundColor: 'rgba(51, 44, 244, 0.25)',
-  //           fill: 'start',
-  //         },
-  //       ],
-  //     },
-  //     options: {
-  //       maintainAspectRatio: false,
-  //       elements: {
-  //         line: {
-  //           tension: 0.4,
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
+
+  ngOnInit(): void {
+    this.apiService.getSalesData().subscribe({
+      next: (res: any) => {
+        this.salesData = res;
+
+        const { labels, datasets } = this.salesData?.data || {};
+        this.labels = labels;
+        this.datapoints = datasets?.data;
+        this.heading = datasets?.label;
+
+        this.drawChart();
+      },
+      error: (err) => {
+        console.error('Error loading sales data:', err);
+      },
+    });
+  }
 }

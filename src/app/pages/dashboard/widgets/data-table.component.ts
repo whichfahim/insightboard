@@ -97,32 +97,21 @@ export class DataTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private readonly apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService) {
+    console.log('constructor');
+  }
 
-  async loadData() {
-    try {
-      const response: any = await this.apiService.getDataTable();
-      if (response?.data) {
-        this.dataSource.data = response?.data;
+  ngOnInit(): void {
+    this.apiService.getDataTable().subscribe({
+      next: (response: any) => {
+        this.dataSource.data = response.data;
         this.dataSource.paginator = this.paginator;
-        console.log('Fetched data:', response);
-      } else {
-        console.error('No data received');
-      }
-    } catch (e) {
-      console.error('Error loading table data:', e);
-    } finally {
-      this.loading = false;
-    }
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching data:', error);
+        this.loading = false;
+      },
+    });
   }
-
-  ngOnInit() {
-    this.loadData();
-  }
-}
-
-export interface PeriodicElement {
-  ID: number;
-  name: string;
-  status: string;
 }
