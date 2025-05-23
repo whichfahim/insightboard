@@ -109,8 +109,8 @@ export class DataTableComponent implements OnInit {
       } else {
         console.error('No data received');
       }
-    } catch (error) {
-      console.error('Error loading table data:', error);
+    } catch (e) {
+      console.error('Error loading table data:', e);
     } finally {
       this.loading = false;
     }
