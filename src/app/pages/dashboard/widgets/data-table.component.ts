@@ -97,9 +97,7 @@ export class DataTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private readonly apiService: ApiService) {
-    console.log('constructor');
-  }
+  constructor(private readonly apiService: ApiService) {}
 
   ngOnInit(): void {
     this.apiService.getDataTable().subscribe({

@@ -61,7 +61,6 @@ export class ApiService {
   }
 
   getDataTable(): Observable<any> {
-    console.log('getDataTable apiService');
     return this.http.get(`${this.apiUrl}/dataTable`).pipe(
       catchError((error) => {
         console.error('API error:', error);
