@@ -8,7 +8,7 @@ import { ApiService } from '../../../services/api.service';
   selector: 'app-total-users',
   imports: [CommonModule, MatIcon],
   template: `
-    <h1 *ngIf="!loading" class="text-main">
+    <h1 class="text-main">
       {{ totalUsers?.current | number : '1.0' : 'en-US' }}
     </h1>
     <span class="text-sub"
@@ -64,6 +64,7 @@ export class TotalUsersComponent implements OnInit {
         const prev = res?.prev ?? 1;
 
         this.percentageChange = ((current - prev) / prev) * 100;
+        this.loading = false;
       },
       error: (err) => {
         console.error('Failed to load totalUsers:', err);
