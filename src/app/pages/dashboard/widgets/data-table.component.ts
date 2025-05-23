@@ -102,7 +102,7 @@ export class DataTableComponent implements OnInit {
   async loadData() {
     try {
       const response: any = await this.apiService.getDataTable();
-      if (response) {
+      if (response?.data) {
         this.dataSource.data = response?.data;
         this.dataSource.paginator = this.paginator;
         console.log('Fetched data:', response);
