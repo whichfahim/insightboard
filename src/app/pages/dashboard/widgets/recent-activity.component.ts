@@ -5,16 +5,21 @@ import { ApiService } from '../../../services/api.service';
   selector: 'app-recent-activity',
   imports: [],
   template: `
+    @if (tasks.length){
     <ul>
       @for (task of tasks; track task){
       <li>
         <span class="activity-span">
-          <p class="task">{{ task.task }}</p>
-          <p class="timestamp">{{ task.timestamp }}</p>
+          <p class="task">{{ task?.task }}</p>
+          <p class="timestamp">{{ task?.timestamp }}</p>
         </span>
       </li>
       }
     </ul>
+
+    } @else {
+    <p>No recent activity available.</p>
+    }
   `,
   styles: `
   
@@ -35,15 +40,17 @@ import { ApiService } from '../../../services/api.service';
   `,
 })
 export class RecentActivityComponent {
-  recentActivity: any | null;
-  constructor(private readonly apiService: ApiService) {
-    this.loadData();
-  }
+  tasks: any[] = [];
+  constructor(private readonly apiService: ApiService) {}
 
-  tasks: any[];
-
-  async loadData() {
-    this.recentActivity = await this.apiService.getRecentActivity();
-    this.tasks = this.recentActivity;
+  ngOnInit(): void {
+    this.apiService.getRecentActivity().subscribe({
+      next: (res: any) => {
+        this.tasks = res || [];
+      },
+      error: (err) => {
+        console.error('Failed to fetch recent activity:', err);
+      },
+    });
   }
 }

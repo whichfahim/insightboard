@@ -1,13 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  ElementRef,
-  inject,
-  OnInit,
-  viewChild,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, viewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { async } from 'rxjs';
+
 import { ApiService } from '../../../services/api.service';
 
 @Component({
@@ -27,49 +20,55 @@ import { ApiService } from '../../../services/api.service';
 })
 export class TrafficSourcesComponent {
   trafficSources: any;
-  labels: string[];
-  data: number[];
+  labels: string[] = [];
+  data: number[] = [];
 
-  chart = viewChild.required<ElementRef>('piechart');
+  @ViewChild('piechart', { static: true }) piechartRef!: ElementRef;
 
-  constructor(private readonly apiService: ApiService) {
-    this.loadData();
+  constructor(private readonly apiService: ApiService) {}
+
+  drawChart(): void {
+    if (!this.labels.length || !this.data.length) return;
+
+    new Chart(this.piechartRef.nativeElement, {
+      type: 'pie',
+      data: {
+        labels: this.labels,
+        datasets: [
+          {
+            label: 'Traffic Sources',
+            data: this.data,
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)',
+            ],
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        maintainAspectRatio: false,
+      },
+    });
   }
 
-  async loadData() {
-    this.trafficSources = await this.apiService.getTrafficData();
-    this.labels = Object.keys(this.trafficSources).map(
-      (key) => key.charAt(0).toUpperCase() + key.slice(1)
-    );
-    this.data = Object.values(this.trafficSources);
-    this.drawChart();
-  }
+  ngOnInit(): void {
+    this.apiService.getTrafficData().subscribe({
+      next: (res: any) => {
+        this.trafficSources = res;
 
-  drawChart() {
-    if (this.labels && this.data) {
-      new Chart(this.chart().nativeElement, {
-        type: 'pie',
-        data: {
-          labels: this.labels,
-          datasets: [
-            {
-              label: 'Traffic Sources',
-              data: this.data,
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-              ],
-              hoverOffset: 4,
-            },
-          ],
-        },
-        options: {
-          maintainAspectRatio: false,
-        },
-      });
-    }
-  }
+        this.labels = Object.keys(this.trafficSources).map(
+          (key) => key.charAt(0).toUpperCase() + key.slice(1)
+        );
 
-  // ngOnInit() {}
+        this.data = Object.values(this.trafficSources);
+
+        this.drawChart();
+      },
+      error: (err) => {
+        console.error('Error loading traffic data:', err);
+      },
+    });
+  }
 }
