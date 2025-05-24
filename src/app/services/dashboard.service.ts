@@ -106,6 +106,16 @@ export class DashboardService {
     }
   }
 
+  fetchOrder() {
+    console.log('Fetching Orders...');
+    throw new Error('Method not implemented.');
+  }
+
+  saveOrder(order: unknown): any {
+    console.log('Saving order...');
+    throw new Error('Method not implemented.');
+  }
+
   updateWidgetPosition(srcWidgetId: number, dstWidgetId: number) {
     const srcIdx = this.addedWidgets().findIndex((w) => w.id === srcWidgetId);
 
