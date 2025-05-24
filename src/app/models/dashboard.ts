@@ -6,4 +6,5 @@ export interface Widget {
   content: Type<unknown>;
   rows?: number;
   columns?: number;
+  dataSource?: string;
 }

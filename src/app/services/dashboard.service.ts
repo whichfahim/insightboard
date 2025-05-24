@@ -18,11 +18,13 @@ export class DashboardService {
       id: 1,
       label: 'Total Users',
       content: TotalUsersComponent,
+      dataSource: 'Primary',
     },
     {
       id: 2,
       label: 'Sales Data',
       content: SalesDataComponent,
+      dataSource: 'Primary',
       columns: 2,
       rows: 1,
     },
@@ -30,16 +32,19 @@ export class DashboardService {
       id: 3,
       label: 'Tasks Completed',
       content: TasksCompletedComponent,
+      dataSource: 'Primary',
     },
     {
       id: 4,
       label: 'Revenue',
       content: RevenueComponent,
+      dataSource: 'Primary',
     },
     {
       id: 5,
       label: 'Traffic Sources',
       content: TrafficSourcesComponent,
+      dataSource: 'Primary',
       rows: 1,
       columns: 2,
     },
@@ -47,16 +52,19 @@ export class DashboardService {
       id: 6,
       label: 'Data Table',
       content: DataTableComponent,
+      dataSource: 'Primary',
     },
     {
       id: 7,
       label: 'Tasks Completed',
       content: TasksCompletedPercentageComponent,
+      dataSource: 'Primary',
     },
     {
       id: 8,
       label: 'Recent Activity',
       content: RecentActivityComponent,
+      dataSource: 'Primary',
     },
   ]);
 
