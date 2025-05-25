@@ -50,8 +50,8 @@ An Angular-based dynamic dashboard settings panel allowing users to configure wi
     
     src/
     ├── app/
-    │   ├── dashboard/         # Main dashboard layout
-    │   ├── settings/          # Settings component with form
+    │   ├── components/         # All reusable components
+    │   ├── pages/              # Dashboard, Settings, and Widgets pages
     │   ├── services/          # DashboardService to manage widgets
     │   └── models/            # Widget type definitions
     
