@@ -8,7 +8,6 @@ import { TrafficSourcesComponent } from '../pages/dashboard/widgets/traffic-sour
 import { DataTableComponent } from '../pages/dashboard/widgets/data-table.component';
 import { TasksCompletedPercentageComponent } from '../pages/dashboard/widgets/tasks-completed-percentage.component';
 import { RecentActivityComponent } from '../pages/dashboard/widgets/recent-activity.component';
-import { nanoid, customAlphabet } from 'nanoid';
 
 @Injectable({
   providedIn: 'root',
