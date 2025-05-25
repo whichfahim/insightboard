@@ -13,35 +13,6 @@
 </div>
 <div class="widget-settings-container">
   @for (w of store.addedWidgets(); track w.id){
-  <mat-card>
-    <mat-card-header>{{ w.label }}</mat-card-header>
-    <mat-card-content
-      ><div class="form-container">
-        <form [formGroup]="settingsForm" class="form-settings">
-          <mat-form-field>
-            <mat-label>Label</mat-label>
-            <input matInput pattern="[a-zA-Z ]*" formControlName="label" />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Datasource</mat-label>
-            <mat-select formControlName="dataSource">
-              <mat-option value="one">API endpoint</mat-option>
-              <mat-option value="two">Database</mat-option>
-              <mat-option value="two">Static data</mat-option>
-              <mat-option value="two">CSV file</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button
-            mat-flat-button
-            type="submit"
-            [disabled]="!settingsForm.valid"
-            (click)="onSubmit($event)"
-          >
-            Save settings
-          </button>
-        </form>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <app-form [data]="w" />
   }
 </div>
