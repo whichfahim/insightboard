@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal, Type } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +16,7 @@ import { Widget } from '../../models/dashboard';
 import { DashboardService } from '../../services/dashboard.service';
 
 import { FormComponent } from '../settings/form/form.component';
+import { WidgetComponent } from '../../components/widget/widget.component';
 
 @Component({
   selector: 'app-widgets',
@@ -38,45 +39,15 @@ import { FormComponent } from '../settings/form/form.component';
 })
 export class WidgetsComponent {
   store = inject(DashboardService);
-  data = input.required<Widget>();
 
-  settingsForm = new FormGroup({
-    label: new FormControl('', [Validators.pattern('[a-zA-Z ]*')]),
-    dataSource: new FormControl('API endpoint'),
-  });
+  addNewWidget() {
+    const newWidget: Widget = {
+      id: this.store.getNextId(),
+      label: 'New Widget',
+      content: WidgetComponent,
+      dataSource: 'API endpoint',
+    };
 
-  widgets: Widget[];
-
-  constructor() {
-    this.store.fetchWidgets();
-    this.widgets = this.store.widgets();
-    effect(() => {
-      let widget: Widget;
-      try {
-        widget = this.data();
-      } catch {
-        console.log('returned');
-        return;
-      }
-      console.log(widget);
-
-      this.settingsForm.patchValue({
-        label: widget?.label,
-        // Only if widget includes dataSource
-        dataSource: (widget as any).dataSource ?? '',
-      });
-    });
-  }
-
-  onSubmit(event: Event) {
-    console.log('submitted');
-    if (!this.data()) throw new Error('Widget input not set yet');
-    if (this.settingsForm.valid) {
-      const updatedValues = this.settingsForm.value;
-      const widgetUpdate: Partial<Widget> = {
-        label: updatedValues.label ?? undefined,
-      };
-      this.store.updateWidget(this.data().id, widgetUpdate);
-    }
+    this.store.addNewWidget(newWidget);
   }
 }

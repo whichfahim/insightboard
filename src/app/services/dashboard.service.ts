@@ -13,15 +13,21 @@ import { RecentActivityComponent } from '../pages/dashboard/widgets/recent-activ
   providedIn: 'root',
 })
 export class DashboardService {
+  widgetId = 0;
+
+  getNextId(): number {
+    return ++this.widgetId;
+  }
+
   widgets = signal<Widget[]>([
     {
-      id: 1,
+      id: this.getNextId(),
       label: 'Total Users',
       content: TotalUsersComponent,
       dataSource: 'Primary',
     },
     {
-      id: 2,
+      id: this.getNextId(),
       label: 'Sales Data',
       content: SalesDataComponent,
       dataSource: 'Primary',
@@ -29,19 +35,19 @@ export class DashboardService {
       rows: 1,
     },
     {
-      id: 3,
+      id: this.getNextId(),
       label: 'Tasks Completed',
       content: TasksCompletedComponent,
       dataSource: 'Primary',
     },
     {
-      id: 4,
+      id: this.getNextId(),
       label: 'Revenue',
       content: RevenueComponent,
       dataSource: 'Primary',
     },
     {
-      id: 5,
+      id: this.getNextId(),
       label: 'Traffic Sources',
       content: TrafficSourcesComponent,
       dataSource: 'Primary',
@@ -49,19 +55,19 @@ export class DashboardService {
       columns: 2,
     },
     {
-      id: 6,
+      id: this.getNextId(),
       label: 'Data Table',
       content: DataTableComponent,
       dataSource: 'Primary',
     },
     {
-      id: 7,
+      id: this.getNextId(),
       label: 'Tasks Completed',
       content: TasksCompletedPercentageComponent,
       dataSource: 'Primary',
     },
     {
-      id: 8,
+      id: this.getNextId(),
       label: 'Recent Activity',
       content: RecentActivityComponent,
       dataSource: 'Primary',
@@ -69,6 +75,7 @@ export class DashboardService {
   ]);
 
   addedWidgets = signal<Widget[]>([]);
+
   widgetsToAdd = computed(() => {
     const addedIds = this.addedWidgets().map((w) => w.id);
     return this.widgets().filter((w) => !addedIds.includes(w.id));
@@ -78,6 +85,10 @@ export class DashboardService {
     this.addedWidgets.set([...this.addedWidgets(), { ...w }]);
   }
 
+  addNewWidget(w: Widget) {
+    this.widgets.set([...this.widgets(), { ...w }]);
+  }
+
   updateWidget(id: number, widget: Partial<Widget>) {
     const index = this.addedWidgets().findIndex((w) => w.id === id);
     if (index !== -1) {
@@ -85,9 +96,24 @@ export class DashboardService {
       newWidgets[index] = { ...newWidgets[index], ...widget };
       this.addedWidgets.set(newWidgets);
     }
+
+    const allIndex = this.widgets().findIndex((w) => w.id === id);
+    if (allIndex !== -1) {
+      const updatedAllWidgets = [...this.widgets()];
+      updatedAllWidgets[allIndex] = {
+        ...updatedAllWidgets[allIndex],
+        ...widget,
+      };
+      this.widgets.set(updatedAllWidgets);
+    }
   }
 
   removeWidget(id: number) {
+    this.addedWidgets.set(this.addedWidgets().filter((w) => w.id !== id));
+  }
+
+  deleteWidget(id: number) {
+    this.widgets.set(this.widgets().filter((w) => w.id !== id));
     this.addedWidgets.set(this.addedWidgets().filter((w) => w.id !== id));
   }
 
@@ -104,7 +130,15 @@ export class DashboardService {
 
       this.addedWidgets.set(widgets);
     }
-    return this.addedWidgets;
+  }
+
+  fetchAllWidgets() {
+    const allWidgetsString = localStorage.getItem('dashboardAllWidgets');
+
+    if (allWidgetsString) {
+      const allWidgets = JSON.parse(allWidgetsString) as Widget[];
+      this.widgets.set(allWidgets);
+    }
   }
 
   updateWidgetPosition(srcWidgetId: number, dstWidgetId: number) {
@@ -145,5 +179,12 @@ export class DashboardService {
       'dashboardWidgets',
       JSON.stringify(widgetsWithoutContent)
     );
+
+    const cleanedWidgets = this.widgets().map((w) => {
+      const { content, ...rest } = w;
+      return rest;
+    });
+
+    localStorage.setItem('dashboardAllWidgets', JSON.stringify(cleanedWidgets));
   });
 }

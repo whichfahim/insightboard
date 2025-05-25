@@ -46,8 +46,6 @@ export class FormComponent {
   widgets: Widget[];
 
   constructor() {
-    this.store.fetchWidgets();
-    this.widgets = this.store.widgets();
     effect(() => {
       let widget: Widget;
       try {
@@ -56,7 +54,6 @@ export class FormComponent {
         console.log('returned');
         return;
       }
-      // console.log(widget);
 
       this.settingsForm.patchValue({
         label: widget?.label,
@@ -66,8 +63,11 @@ export class FormComponent {
     });
   }
 
+  deleteWidget(event: Event) {
+    this.store.deleteWidget(this.data().id);
+  }
+
   onSubmit(event: Event) {
-    console.log('submitted');
     if (!this.data()) throw new Error('Widget input not set yet');
     if (this.settingsForm.valid) {
       const updatedValues = this.settingsForm.value;
