@@ -104,6 +104,7 @@ export class DashboardService {
 
       this.addedWidgets.set(widgets);
     }
+    return this.addedWidgets;
   }
 
   updateWidgetPosition(srcWidgetId: number, dstWidgetId: number) {
