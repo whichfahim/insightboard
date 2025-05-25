@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-settings',
@@ -36,6 +37,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatDividerModule,
     MatGridListModule,
     MatSlideToggleModule,
+    MatButtonModule,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
