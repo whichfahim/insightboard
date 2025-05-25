@@ -1,5 +1,5 @@
 # Insightboard
-An Angular-based dynamic dashboard settings panel allowing users to configure widget properties such as labels and data sources. Designed with reactive forms, Angular signals, and Material UI components.
+An Angular-based dynamic dashboard settings panel allowing users to configure widget properties such as labels and data sources. Designed with reactive forms, Angular signals, and Material UI components. Instructions to run the project:
 
 1. **Clone the repository:**
 
@@ -7,21 +7,22 @@ An Angular-based dynamic dashboard settings panel allowing users to configure wi
    git clone https://github.com/your-username/dashboard-settings.git
    cd dashboard-settings
    ```
+
+   or download the .zip archive and extract.
    
 2. **Install dependencies:**
 
-    Make sure you have Node.js (v18+) and Angular CLI installed globally.
+    Make sure you have Node.js (v18+) and Angular CLI installed globally. From the root folder open up the terminal and run:
     
       ```bash
-      npm install -g @angular/cli
       npm install
       ```
 
-3. **Start the mock (json) server:**
+4. **Start the mock (json) server:**
     ```bash
     npx json-server insightboard-db.json
     ```
-4. **Run the development server:**
+5. **Run the development server:**
    ```bash
    ng serve
    ```
