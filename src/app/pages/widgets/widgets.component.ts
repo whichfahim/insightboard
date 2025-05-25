@@ -34,20 +34,28 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrl: './widgets.component.scss',
 })
 export class WidgetsComponent {
-  settingsForm = new FormGroup({
-    label: new FormControl('', [Validators.pattern('[a-zA-Z ]*')]),
-    dataSource: new FormControl(''),
-  });
   store = inject(DashboardService);
   data = input.required<Widget>();
+
+  settingsForm = new FormGroup({
+    label: new FormControl('', [Validators.pattern('[a-zA-Z ]*')]),
+    dataSource: new FormControl('API endpoint'),
+  });
 
   widgets: Widget[] = this.store.addedWidgets();
 
   constructor() {
+    this.store.fetchWidgets();
     effect(() => {
-      const widget = this.data();
+      let widget: Widget;
+      try {
+        widget = this.data();
+      } catch {
+        return;
+      }
+
       this.settingsForm.patchValue({
-        label: widget.label,
+        label: widget?.label,
         // Only if widget includes dataSource
         dataSource: (widget as any).dataSource ?? '',
       });
@@ -55,12 +63,12 @@ export class WidgetsComponent {
   }
 
   onSubmit(event: Event) {
-    // console.log('submitted');
+    console.log('submitted');
+    if (!this.data()) throw new Error('Widget input not set yet');
     if (this.settingsForm.valid) {
       const updatedValues = this.settingsForm.value;
       const widgetUpdate: Partial<Widget> = {
         label: updatedValues.label ?? undefined,
-        // optionally filter others if Widget grows
       };
       this.store.updateWidget(this.data().id, widgetUpdate);
     }
