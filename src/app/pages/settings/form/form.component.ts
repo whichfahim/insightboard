@@ -1,4 +1,5 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -12,13 +13,11 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Widget } from '../../models/dashboard';
-import { DashboardService } from '../../services/dashboard.service';
-
-import { FormComponent } from '../settings/form/form.component';
+import { DashboardService } from '../../../services/dashboard.service';
+import { Widget } from '../../../models/dashboard';
 
 @Component({
-  selector: 'app-widgets',
+  selector: 'app-form',
   imports: [
     MatButtonModule,
     MatIconModule,
@@ -31,12 +30,11 @@ import { FormComponent } from '../settings/form/form.component';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    FormComponent,
   ],
-  templateUrl: './widgets.component.html',
-  styleUrl: './widgets.component.scss',
+  templateUrl: './form.component.html',
+  styleUrl: './form.component.scss',
 })
-export class WidgetsComponent {
+export class FormComponent {
   store = inject(DashboardService);
   data = input.required<Widget>();
 
@@ -58,7 +56,7 @@ export class WidgetsComponent {
         console.log('returned');
         return;
       }
-      console.log(widget);
+      // console.log(widget);
 
       this.settingsForm.patchValue({
         label: widget?.label,
