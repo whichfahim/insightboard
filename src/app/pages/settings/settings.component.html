@@ -1,1 +1,80 @@
-<h2>Settings</h2>
+<h1 class="heading-primary font-weight-bold">Settings</h1>
+<p class="subheading font-weight-light">
+  Manage your account settings and preferences
+</p>
+<div class="container">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title class="title">
+        <mat-icon class="material-icons-outlined font-weight-bold">
+          person </mat-icon
+        >Profile</mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content class="profile-content">
+      <span class="user-span">
+        <mat-form-field appearance="outline" [floatLabel]="floatLabel()">
+          <mat-label class="font-weight-bold">Username</mat-label>
+          <input matInput placeholder="John Doe" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" [floatLabel]="floatLabel()">
+          <mat-label class="font-weight-bold">Email</mat-label>
+          <input matInput placeholder="johndoe&#64;example.com" />
+        </mat-form-field>
+      </span>
+      <mat-form-field appearance="outline">
+        <mat-label class="font-weight-bold">Bio</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined">
+    <mat-card-header
+      ><mat-card-title class="title"
+        ><mat-icon class="material-icons-outlined font-weight-bold"
+          >palette</mat-icon
+        >
+        Appearance</mat-card-title
+      ></mat-card-header
+    >
+    <mat-card-content>
+      <div class="theme">
+        <mat-label class="font-weight-bold">Theme mode: </mat-label>
+        <mat-radio-group [formControl]="floatLabelControl">
+          <mat-radio-button value="light">Light</mat-radio-button>
+          <mat-radio-button value="dark">Dark</mat-radio-button>
+          <mat-radio-button value="system">System</mat-radio-button>
+        </mat-radio-group>
+        <mat-divider></mat-divider>
+        <mat-label class="font-weight-bold">Theme colour: </mat-label>
+        <mat-radio-group [formControl]="floatLabelControl">
+          <mat-radio-button value="azure">Azure</mat-radio-button>
+          <mat-radio-button value="rose">Rose</mat-radio-button>
+          <mat-radio-button value="cyan">Cyan</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined">
+    <mat-card-header
+      ><mat-card-title class="title"
+        ><mat-icon class="material-icons-outlined">dashboard</mat-icon>
+        Dashboard</mat-card-title
+      ></mat-card-header
+    >
+    <mat-card-content>
+      <div>
+        <p class="auto-refresh-toggle font-weight-bold">
+          Auto-refresh
+          <mat-slide-toggle></mat-slide-toggle>
+        </p>
+        <p class="subtext">Automatically refresh dashboard data</p>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Refresh interval</mat-label>
+        <input matInput placeholder="30" />
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+  <button mat-flat-button>Save Settings</button>
+</div>
