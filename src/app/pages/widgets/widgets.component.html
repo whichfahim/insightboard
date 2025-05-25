@@ -6,13 +6,13 @@
     </p>
   </div>
 
-  <button mat-flat-button>
+  <button mat-flat-button (click)="addNewWidget()">
     <mat-icon class="material-icons-outlined font-weight-bold"> add </mat-icon>
     Add new widget
   </button>
 </div>
 <div class="widget-settings-container">
-  @for (w of store.addedWidgets(); track w.id){
+  @for (w of store.widgets(); track w.id){
   <app-form [data]="w" />
   }
 </div>

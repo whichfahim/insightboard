@@ -16,14 +16,19 @@
             <mat-option value="two">CSV file</mat-option>
           </mat-select>
         </mat-form-field>
-        <button
-          mat-flat-button
-          type="submit"
-          [disabled]="!settingsForm.valid"
-          (click)="onSubmit($event)"
-        >
-          Save settings
-        </button>
+        <div class="button-group">
+          <button
+            mat-flat-button
+            type="submit"
+            [disabled]="!settingsForm.valid"
+            (click)="onSubmit($event)"
+          >
+            Save settings
+          </button>
+          <button mat-stroked-button (click)="deleteWidget($event)">
+            Delete
+          </button>
+        </div>
       </form>
     </div>
   </mat-card-content>
