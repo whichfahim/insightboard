@@ -73,7 +73,7 @@ import { CommonModule } from '@angular/common';
   styles: `
     table {
     width: 100%;
-  }
+    }
 
     .activity-span{
       display: block;
@@ -88,6 +88,22 @@ import { CommonModule } from '@angular/common';
       margin:0;
       color: grey;
     }
+
+    .active {
+      text-align:center;
+      padding:5px 10px;
+      border-radius:2rem;
+  background-color: #55C17C;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.inactive {
+  padding: 5px 10px;
+  background-color: #E8EBED;
+  font-weight: bold;
+  border-radius:20px;
+}
   `,
 })
 export class DataTableComponent implements OnInit {

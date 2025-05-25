@@ -25,7 +25,6 @@ import { ApiService } from '../../../services/api.service';
   
 
     .activity-span{
-      // display: block;
       margin-bottom: 5px;
     }
     .task{

@@ -12,7 +12,7 @@ import { Component, inject } from '@angular/core';
   `,
   styles: `
     .container{
-      border: 1rem solid green;
+      border: 1rem solid #58C481;
       height: 150px;
       width: 150px;
       margin: 0 auto;

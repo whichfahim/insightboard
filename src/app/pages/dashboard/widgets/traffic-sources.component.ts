@@ -39,9 +39,9 @@ export class TrafficSourcesComponent {
             label: 'Traffic Sources',
             data: this.data,
             backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)',
+              'rgb(73, 93, 236)',
+              'rgb(126, 139, 255)',
+              'rgb(255, 175, 200)',
             ],
             hoverOffset: 4,
           },
